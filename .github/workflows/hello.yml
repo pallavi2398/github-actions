@@ -5,6 +5,9 @@ name: Hello
 on:
   push:
     branches: [main]
+    # This workflow will run only when there is a change in html file
+    paths:
+    - '**.html'
     
 # These are jobs inside the workflow
 jobs:
