@@ -1,0 +1,24 @@
+# uses trivy image scanning for CVEs
+name: Docker Image Scan
+
+on:
+    workflow_call:
+
+jobs:
+    image-scanner:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Dockerhub login
+              uses: docker/login-action@v3
+              with:
+                username: ${{ vars.DOCKERHUB_USER }}
+                password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+            - name: Trivy scanner
+              uses: aquasecurity/trivy-action@0.33.1
+              with:
+                severity: 'CRITICAL'
+                exit-code: '1'
+            
+
